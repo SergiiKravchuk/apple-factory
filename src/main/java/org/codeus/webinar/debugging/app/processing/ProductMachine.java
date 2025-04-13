@@ -10,13 +10,13 @@ import java.util.Set;
 public abstract class ProductMachine {
 
   public static ProcessedApple processApple(ClassifiedApple classifiedApple) {
-    ProductMachine targetProductMachine = getProductMachines().stream()
+    var targetProductMachine = getProductMachines().stream()
       .filter(productMachine -> productMachine.canProcess(classifiedApple))
       .findFirst()
       .orElseThrow(() ->
         new ProductMachineIsNotFoundException("Product machine is not found for AppleType: %s".formatted(classifiedApple.type())));
 
-    ProcessedApple processedApple = targetProductMachine.process(classifiedApple);
+    var processedApple = targetProductMachine.process(classifiedApple);
     System.out.println("Processed Apple=" + processedApple);
     return processedApple;
   }

@@ -1,14 +1,12 @@
 package org.codeus.webinar.debugging.app;
 
 import org.codeus.webinar.debugging.app.classification.ClassificationMachine;
-import org.codeus.webinar.debugging.app.packaging.Package;
 import org.codeus.webinar.debugging.app.packaging.PackageMachine;
 import org.codeus.webinar.debugging.app.processing.ProductMachine;
 import org.codeus.webinar.debugging.app.source.Apple;
 import org.codeus.webinar.debugging.app.source.AppleStorage;
 import org.codeus.webinar.debugging.app.util.ProductMachineIsNotFoundException;
 
-import java.util.List;
 import java.util.stream.Collector;
 
 public class FactoryFlow {
@@ -34,12 +32,12 @@ public class FactoryFlow {
   public void execute() {
     var classificator = ClassificationMachine.getDefaultClassificationMachine();
     var packager = PackageMachine.getDefaultPackageMachine();
-    List<Apple> rawApplesBatch = AppleStorage.getBatch().limit(100).toList();
+    var rawApplesBatch = AppleStorage.getBatch().limit(100).toList();
 
-    currentState = State.PROCESSING;
+    currentState = State.PACKAGING;
 
     try {
-      List<Package> packages = rawApplesBatch.stream()
+      var packages = rawApplesBatch.stream()
         .filter(this::isAppleFresh)
         .map(classificator::classify)
         .map(ProductMachine::processApple)

@@ -32,9 +32,9 @@ class BatchPackageMachine extends PackageMachine {
   }
 
   public void add(ProcessedApple apple) {
-    ProductType productType = apple.productType();
+    var productType = apple.productType();
 
-    List<ProcessedApple> batch = batches.computeIfAbsent(productType, k -> new ArrayList<>());
+    var batch = batches.computeIfAbsent(productType, k -> new ArrayList<>());
     batch.add(apple);
 
     if (batch.size() == maxBatchSize) flush(productType);
@@ -46,10 +46,10 @@ class BatchPackageMachine extends PackageMachine {
   }
 
   private void flush(ProductType productType) {
-    List<ProcessedApple> batch = batches.get(productType);
+    var batch = batches.get(productType);
     if (batch.isEmpty()) return;
 
-    double batchVolume = batch.stream().mapToDouble(ProcessedApple::volume).sum();
+    var batchVolume = batch.stream().mapToDouble(ProcessedApple::volume).sum();
 
     Package newPackage;
     if (productType == ProductType.CIDER) newPackage = new Bottle(batchVolume);
