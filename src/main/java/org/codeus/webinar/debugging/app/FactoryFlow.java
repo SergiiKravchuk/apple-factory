@@ -1,7 +1,8 @@
 package org.codeus.webinar.debugging.app;
 
-import org.codeus.webinar.debugging.app.classification.ClassificationMachine;
+import org.codeus.webinar.debugging.app.classification.ClassificationMachineFactory;
 import org.codeus.webinar.debugging.app.packaging.PackageMachine;
+import org.codeus.webinar.debugging.app.packaging.PackageMachineFactory;
 import org.codeus.webinar.debugging.app.processing.ProductMachine;
 import org.codeus.webinar.debugging.app.source.Apple;
 import org.codeus.webinar.debugging.app.source.AppleStorage;
@@ -30,8 +31,8 @@ public class FactoryFlow {
   }
 
   public void execute() {
-    var classificator = ClassificationMachine.getDefaultClassificationMachine();
-    var packager = PackageMachine.getDefaultPackageMachine();
+    var classificator = ClassificationMachineFactory.getDefaultClassificationMachine();
+    var packager = PackageMachineFactory.getDefaultPackageMachine();
     var rawApplesBatch = AppleStorage.getBatch().limit(100).toList();
 
     currentState = State.PACKAGING;

@@ -10,10 +10,6 @@ import java.util.Map;
 
 public abstract class PackageMachine {
 
-  public static PackageMachine getDefaultPackageMachine() {
-    return new BatchPackageMachine(5);
-  }
-
   abstract public void add(ProcessedApple apple);
   abstract public List<Package> finish();
 
