@@ -10,6 +10,7 @@ import java.util.Set;
 public abstract class ProductMachine {
 
   public static ProcessedApple processApple(ClassifiedApple classifiedApple) {
+    System.out.println("Processing " + classifiedApple);
     var targetProductMachine = getProductMachines().stream()
       .filter(productMachine -> productMachine.canProcess(classifiedApple))
       .findFirst()
@@ -17,7 +18,6 @@ public abstract class ProductMachine {
         new ProductMachineIsNotFoundException("Product machine is not found for AppleType: %s".formatted(classifiedApple.type())));
 
     var processedApple = targetProductMachine.process(classifiedApple);
-    System.out.println("Processed Apple=" + processedApple);
     return processedApple;
   }
 
@@ -66,6 +66,7 @@ class JuiceProductMachine extends ProductMachine {
     var rawApple = classifiedApple.apple();
     var processedVolume = classifiedApple.type().getModifier() * rawApple.size().getVolume() * rawApple.freshness() * productModifier;
 
+    System.out.printf("New %s product with %f%n", ProcessedApple.ProductType.JUICE, processedVolume);
     return new ProcessedApple(ProcessedApple.ProductType.JUICE, processedVolume);
   }
 }
@@ -100,6 +101,7 @@ class CiderProductMachine extends ProductMachine {
     var rawApple = classifiedApple.apple();
     var processedVolume = classifiedApple.type().getModifier() * rawApple.size().getVolume() * rawApple.freshness() * productModifier;
 
+    System.out.printf("New %s product with %f%n", ProcessedApple.ProductType.CIDER, processedVolume);
     return new ProcessedApple(ProcessedApple.ProductType.CIDER, processedVolume);
   }
 }

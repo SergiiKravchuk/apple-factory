@@ -35,7 +35,7 @@ public class FactoryFlow {
     var packager = PackageMachineFactory.getDefaultPackageMachine();
     var rawApplesBatch = AppleStorage.getBatch().limit(100).toList();
 
-    currentState = State.PACKAGING;
+    currentState = State.PROCESSING;
 
     try {
       var packages = rawApplesBatch.stream()
